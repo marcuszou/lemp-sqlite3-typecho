@@ -1,4 +1,0 @@
-172.28.0.1 - - [22/Feb/2025:08:24:52 -0700] "GET / HTTP/1.1" 200 81542 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36" "-"
-172.28.0.1 - - [22/Feb/2025:08:25:21 -0700] "GET / HTTP/1.1" 200 81713 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36" "-"
-172.28.0.1 - - [22/Feb/2025:09:39:52 -0700] "GET / HTTP/1.1" 200 81542 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36" "-"
-172.28.0.1 - - [22/Feb/2025:09:39:55 -0700] "GET / HTTP/1.1" 200 81551 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36" "-"

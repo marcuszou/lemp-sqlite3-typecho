@@ -7,7 +7,7 @@
      <body>
           <h1>Hello, PHP8 + SQLite3!</h1>
           <?php
-               $db = new SQLite3('testing.sqlite', SQLITE3_OPEN_CREATE | SQLITE3_OPEN_READWRITE);
+               $db = new SQLite3('/data/testing.sqlite', SQLITE3_OPEN_CREATE | SQLITE3_OPEN_READWRITE);
                // Create a table.
                $db->query(
                     'CREATE TABLE IF NOT EXISTS "users" (

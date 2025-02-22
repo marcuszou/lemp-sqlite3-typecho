@@ -98,7 +98,7 @@ Create the folder structure and files.
 mkdir lemp-sqlite3
 cd lemp-sqlite3
 ## generate sub-folders
-mkdir -p db/data nginx/{conf,logs} php www/html
+mkdir -p db/{data,dir} nginx/{conf,logs} php www/html
 ## generate files
 touch README.md docker-compose.yml nginx/conf/default.conf 
 touch php/{Dockerfile,php.ini,php-log.conf} 
@@ -114,7 +114,7 @@ Here is the output of last command above: Exactly same as what we designed, fant
 ├── README.md
 ├── docker-compose.yml
 ├── db
-│   ├── data
+│   └── data
 ├── nginx
 │   ├── conf
 │   │   └── default.conf
@@ -180,6 +180,7 @@ services:
       # php-fpm config files are loacted at /usr/local/etc/php-fpm.d/ folder
       - ./php/php-log.conf:/usr/local/etc/php-fpm.d/zz-log.conf
       - ./php/php.ini:/usr/local/etc/php/conf.d/php.ini
+      - ./db/data/:/data/
     networks:
       - lemp-sqlite3-net
 
@@ -405,6 +406,13 @@ Also access **http://localhost:8080** to take a look. Obviously there are 3 user
 
 The final touch-up is to hook up the [SQLite Browser](https://sqlitebrowser.org/). *DB Browser for SQLite* (DB4S) is a high quality, visual, [open source](https://github.com/sqlitebrowser/sqlitebrowser) tool designed for people who want to create, search, and edit [SQLite](https://www.sqlite.org/) or [SQLCipher](https://www.zetetic.net/sqlcipher/) database files. DB4S gives a familiar spreadsheet-like interface on the database in addition to providing a full SQL query facility. It works with Windows, macOS, and most versions of Linux and Unix. 
 
+Currently in the market, there are some open-source docker containers:
+
+- lscr.io/linuxserver/sqlitebrowser:latest - updating very often, reply on UID/GID of the host, VNC-based, big-sized: 1.5GB...
+- __evgeniydoctor/sqlitebrowser__:latest - updating not-so-often, simple-setup, small-sized: 366MB...
+
+So the latter was selected.
+
 Nothing special, just simply add a service named "`sqlitebrowser`" in the end of the `docker-compose.yml` file.
 
 ```shell
@@ -412,20 +420,20 @@ Nothing special, just simply add a service named "`sqlitebrowser`" in the end of
 
   # SQLiteBrowser Service
   sqlitebrowser:
-    image: lscr.io/linuxserver/sqlitebrowser:latest
     container_name: sqlitebrowser
-    security_opt:
-      - seccomp:unconfined #optional
-    environment:
-      - PUID=1000
-      - PGID=1000
-      - TZ=Etc/UTC
-    volumes:
-      - ./db/sqlitebrowser:/config
+    image: evgeniydoctor/sqlitebrowser:latest
     ports:
-      - 3000:3000
-      - 3001:3001
+      - 5800:5800
     restart: unless-stopped
+    environment:
+      - VNC_PASSWORD=vncP@ss2024
+      - KEEP_APP_RUNNING=1
+      - TZ=America/Edmonton
+    volumes:
+      - ./db/dir:/dbs/dir
+      - ./db/data:/dbs/data
+    depends_on: 
+      - php
     networks:
       - lemp-sqlite3-net
 
@@ -434,7 +442,7 @@ networks:
   lemp-sqlite3-net:
 ```
 
-Then fire up the dockers. And access __http://localhost:3000__  or __https://localhost:3001__ for the `SQLite Browser` site.
+Then fire up the dockers. And access __http://localhost:5800__ for the `SQLite Browser` site. Feel free to remove the password if needed.
 
 ![DBMgr-login](assets/p3.png)
 
@@ -461,7 +469,7 @@ docker rm $(docker ps -aq)
 
 ```shell
 docker images
-docker image rm lemp-demo-php
+docker image rm lemp-sqlite3-php
 ```
 
 8.3 remove some left-over folders and files
@@ -469,8 +477,6 @@ docker image rm lemp-demo-php
 ```shell
 sudo rm -rf db/data/*
 sudo rm -rf nginx/logs/*
-## As needed
-sudo rm www/html/config.inc.php
 ```
 
 
