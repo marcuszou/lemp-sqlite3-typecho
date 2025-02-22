@@ -1,0 +1,43 @@
+# Services
+services:
+
+  # Nginx Service
+  nginx:
+    container_name: web
+    image: nginx:alpine
+    ports:
+      - 8080:80
+    restart: always
+    environment:
+      - TZ=America/Edmonton
+    links:
+      - php
+    volumes:
+      - ./www/html/:/var/www/html/
+      - ./nginx/conf/:/etc/nginx/conf.d/
+      - ./nginx/logs/:/var/log/nginx/
+    depends_on:
+      - php
+    networks:
+      - lesp-net
+
+  # PHP-FPM Service
+  php:
+    container_name: php8
+    build: php
+    expose:
+      - 9000
+    restart: always
+    environment:
+      - TZ=America/Edmonton
+    volumes:
+      - ./www/html/:/var/www/html/
+      # php-fpm config files are loacted at /usr/local/etc/php-fpm.d/ folder
+      - ./php/php-log.conf:/usr/local/etc/php-fpm.d/zz-log.conf
+      - ./php/php.ini:/usr/local/etc/php/conf.d/php.ini
+    networks:
+      - lesp-net
+
+# Networks
+networks:
+  lesp-net:
