@@ -470,6 +470,7 @@ docker rm $(docker ps -aq)
 ```shell
 docker images
 docker image rm lemp-sqlite3-php
+docker image rm evgeniydoctor/sqlitebrowser
 ```
 
 8.3 remove some left-over folders and files
