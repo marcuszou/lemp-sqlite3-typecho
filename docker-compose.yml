@@ -32,7 +32,7 @@ services:
       - TZ=America/Edmonton
     volumes:
       - ./www/html/:/var/www/html/
-      # php-fpm config files are loacted at /usr/local/etc/php-fpm.d/ folder
+      # php-fpm config files are located at /usr/local/etc/php-fpm.d/ folder
       - ./php/php-log.conf:/usr/local/etc/php-fpm.d/zz-log.conf
       - ./php/php.ini:/usr/local/etc/php/conf.d/php.ini
       - ./db/data/:/data/

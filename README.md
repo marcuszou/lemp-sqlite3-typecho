@@ -104,13 +104,13 @@ touch README.md docker-compose.yml nginx/conf/default.conf
 touch php/{Dockerfile,php.ini,php-log.conf} 
 touch www/html/index.php
 ## display the folder/files structure
-tree ../lemp-sqlite3
+tree
 ```
 
 Here is the output of last command above: Exactly same as what we designed, fantastic, isn't it?
 
 ```shell
-../lemp-sqlite3
+.
 ├── README.md
 ├── docker-compose.yml
 ├── db
@@ -177,7 +177,7 @@ services:
     volumes:
       - ./www/html/:/var/www/html/
       - ./db/data/:/data/
-      # php-fpm config files are loacted at /usr/local/etc/php-fpm.d/ folder
+      # php-fpm config files are located at /usr/local/etc/php-fpm.d/ folder
       - ./php/php-log.conf:/usr/local/etc/php-fpm.d/zz-log.conf
       - ./php/php.ini:/usr/local/etc/php/conf.d/php.ini
       - ./db/data/:/data/
