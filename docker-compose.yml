@@ -6,8 +6,8 @@ services:
     container_name: web
     image: nginx:alpine
     ports:
-      - 80:80
-      - 443:443
+      - 8080:80
+      #- 443:443
     restart: always
     environment:
       - TZ=America/Edmonton
@@ -17,7 +17,7 @@ services:
       - ./www/html/:/var/www/html/
       - ./nginx/conf/:/etc/nginx/conf.d/
       - ./nginx/logs/:/var/log/nginx/
-      - ./devcerts/:/etc/nginx/certs/
+      #- ./devcerts/:/etc/nginx/certs/
     depends_on:
       - php
     networks:
@@ -34,30 +34,31 @@ services:
       - TZ=America/Edmonton
     volumes:
       - ./www/html/:/var/www/html/
+      # php-fpm config files are located at /usr/local/etc/php-fpm.d/ folder
       - ./php/php-log.conf:/usr/local/etc/php-fpm.d/zz-log.conf
       - ./php/php.ini:/usr/local/etc/php/conf.d/php.ini
       - ./db/data/:/data/
     networks:
       - lemp-sqlite3-net
 
-  # SQLiteBrowser Service
-  sqlitebrowser:
-    container_name: sqlitebrowser
-    image: evgeniydoctor/sqlitebrowser:latest
-    ports:
-      - 5800:5800
-    restart: unless-stopped
-    environment:
-      - VNC_PASSWORD=vncP@ss2024
-      - KEEP_APP_RUNNING=1
-      - TZ=America/Edmonton
-    volumes:
-      - ./db/dir:/dbs/dir
-      - ./db/data:/dbs/data
-    depends_on: 
-      - php
-    networks:
-      - lemp-sqlite3-net
+  # # SQLiteBrowser Service
+  # sqlitebrowser:
+  #   container_name: sqlitebrowser
+  #   image: evgeniydoctor/sqlitebrowser:latest
+  #   ports:
+  #     - 5800:5800
+  #   restart: unless-stopped
+  #   environment:
+  #     - VNC_PASSWORD=vncP@ss2024
+  #     - KEEP_APP_RUNNING=1
+  #     - TZ=America/Edmonton
+  #   volumes:
+  #     - ./db/dir:/dbs/dir
+  #     - ./db/data:/dbs/data
+  #   depends_on: 
+  #     - php
+  #   networks:
+  #     - lemp-sqlite3-net
 
 # Networks
 networks:

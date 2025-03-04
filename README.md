@@ -68,7 +68,7 @@ Without further ado, let’s work it out.
 
 4. Access the website via http://localhost:8080 for the Web, 
 
-5. Access the SQLite Browser at http://localhost:3000 or https://localhost:3001.
+5. Access the SQLite Browser at http://localhost:5800.
 
 
 
@@ -100,7 +100,7 @@ cd lemp-sqlite3
 ## generate sub-folders
 mkdir -p db/{data,dir} nginx/{conf,logs} php www/html
 ## generate files
-touch README.md docker-compose.yml nginx/conf/default.conf 
+touch README.md LICENSE.md docker-compose.yml nginx/conf/default.conf 
 touch php/{Dockerfile,php.ini,php-log.conf} 
 touch www/html/index.php
 ## display the folder/files structure
@@ -112,6 +112,7 @@ Here is the output of last command above: Exactly same as what we designed, fant
 ```shell
 .
 ├── README.md
+├── LICENSE.md
 ├── docker-compose.yml
 ├── db
 │   └── data
@@ -176,7 +177,6 @@ services:
       - TZ=America/Edmonton
     volumes:
       - ./www/html/:/var/www/html/
-      - ./db/data/:/data/
       # php-fpm config files are located at /usr/local/etc/php-fpm.d/ folder
       - ./php/php-log.conf:/usr/local/etc/php-fpm.d/zz-log.conf
       - ./php/php.ini:/usr/local/etc/php/conf.d/php.ini
@@ -223,21 +223,19 @@ server {
     index index.html index.php;
 
     charset utf-8;
-     
-    location / {
-        try_files $uri $uri/ /index.php?$query_string;
-    }
-
-    location = /favicon.ico { access_log off; log_not_found off; }
-    location = /robots.txt { access_log off; log_not_found off; }
-
-    access_log off;
+    
+    # access_log off;
+    access_log /var/log/nginx/access.log main;
     error_log /var/log/nginx/error.log error;
 
     sendfile off;
-
     client_max_body_size 100m;
-
+    
+    location = /favicon.ico { access_log off; log_not_found off; }
+    location = /robots.txt { access_log off; log_not_found off; }
+    
+    location / { try_files $uri $uri/ /index.php?$query_string; }
+    
     location ~ .php$ {
         fastcgi_split_path_info ^(.+.php)(/.+)$;
         fastcgi_pass php:9000;
@@ -249,9 +247,7 @@ server {
         fastcgi_buffers 4 16k;
     }
 
-    location ~ /.ht {
-        deny all;
-    }
+    location ~ /.ht { deny all; }
 }
 ```
 
@@ -304,7 +300,7 @@ __4.3__ - And configure the logs by `nano php/php-log.conf`, which will also be 
 
 ```shell
 php_admin_flag[log_errors] = on
-php_flag[display_errors] = off
+php_flag[display_errors] = on  ## turn it off after debugging
 ```
 
 
