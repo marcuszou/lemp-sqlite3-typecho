@@ -41,24 +41,24 @@ services:
     networks:
       - lemp-sqlite3-net
 
-  # # SQLiteBrowser Service
-  # sqlitebrowser:
-  #   container_name: sqlitebrowser
-  #   image: evgeniydoctor/sqlitebrowser:latest
-  #   ports:
-  #     - 5800:5800
-  #   restart: unless-stopped
-  #   environment:
-  #     - VNC_PASSWORD=vncP@ss2024
-  #     - KEEP_APP_RUNNING=1
-  #     - TZ=America/Edmonton
-  #   volumes:
-  #     - ./db/dir:/dbs/dir
-  #     - ./db/data:/dbs/data
-  #   depends_on: 
-  #     - php
-  #   networks:
-  #     - lemp-sqlite3-net
+  # SQLiteBrowser Service
+  sqlitebrowser:
+    container_name: sqlitebrowser
+    image: evgeniydoctor/sqlitebrowser:latest
+    ports:
+      - 5800:5800
+    restart: unless-stopped
+    environment:
+      - VNC_PASSWORD=vncP@ss2024
+      - KEEP_APP_RUNNING=1
+      - TZ=America/Edmonton
+    volumes:
+      - ./db/dir:/dbs/dir
+      - ./db/data:/dbs/data
+    depends_on: 
+      - php
+    networks:
+      - lemp-sqlite3-net
 
 # Networks
 networks:
