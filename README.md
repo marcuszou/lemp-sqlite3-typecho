@@ -453,11 +453,28 @@ And the Admin GUI:
 When testing against macOS, the `evgeniydoctor/sqlitebrowser:latest` image doesn't work as it has no build in macOS, then sqitch to a more universal - `linuxserver/docker-sqlitebrowser`:
 
 ```shell
+  # SQLiteBrowser Service
+  sqlitebrowser:
+    image: lscr.io/linuxserver/sqlitebrowser:latest
+    container_name: sqlitebrowser
+    security_opt:
+      - seccomp:unconfined #optional
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Etc/UTC
+    volumes:
+      - ./db/config:/config
+      - ./db/data:/data
+    ports:
+      - 3000:3000
+      - 3001:3001
+    restart: unless-stopped
+    depends_on: 
+      - php
+    networks:
+      - lemp-sqlite3-net
 ```
-
-
-
-
 
 
 
@@ -502,8 +519,6 @@ sudo rm -rf nginx/logs/*
 ## Outro
 
 In the above guide, you learned how to deploy a PHP application with Nginx and SQLite3 using Docker and Docker Compose. You should now be able to host the PHP application in the production environment with Docker.
-
-
 
 
 ## License
