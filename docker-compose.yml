@@ -41,18 +41,21 @@ services:
 
   # SQLiteBrowser Service
   sqlitebrowser:
+    image: lscr.io/linuxserver/sqlitebrowser:latest
     container_name: sqlitebrowser
-    image: evgeniydoctor/sqlitebrowser:latest
-    ports:
-      - 5800:5800
-    restart: unless-stopped
+    security_opt:
+      - seccomp:unconfined #optional
     environment:
-      - VNC_PASSWORD=vncP@ss2024
-      - KEEP_APP_RUNNING=1
-      - TZ=America/Edmonton
+      - PUID=1000
+      - PGID=1000
+      - TZ=Etc/UTC
     volumes:
-      - ./db/dir:/dbs/dir
-      - ./db/data:/dbs/data
+      - ./db/config:/config
+      - ./db/data:/data
+    ports:
+      - 3000:3000
+      - 3001:3001
+    restart: unless-stopped
     depends_on: 
       - php
     networks:

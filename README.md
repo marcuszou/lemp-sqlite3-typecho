@@ -398,7 +398,7 @@ Also access **http://localhost:8080** to take a look. Obviously there are 3 user
 
 
 
-### 7- (Optionally) Grab SQLite Browser 
+### 7A- (Optionally) Grab SQLite Browser 
 
 The final touch-up is to hook up the [SQLite Browser](https://sqlitebrowser.org/). *DB Browser for SQLite* (DB4S) is a high quality, visual, [open source](https://github.com/sqlitebrowser/sqlitebrowser) tool designed for people who want to create, search, and edit [SQLite](https://www.sqlite.org/) or [SQLCipher](https://www.zetetic.net/sqlcipher/) database files. DB4S gives a familiar spreadsheet-like interface on the database in addition to providing a full SQL query facility. It works with Windows, macOS, and most versions of Linux and Unix. 
 
@@ -445,6 +445,19 @@ Then fire up the dockers. And access __http://localhost:5800__ for the `SQLite B
 And the Admin GUI:
 
 ![DBMgr-GUI](assets/p4.png)
+
+
+
+## 7B- Switch to a universal SQLiteBrowser
+
+When testing against macOS, the `evgeniydoctor/sqlitebrowser:latest` image doesn't work as it has no build in macOS, then sqitch to a more universal - `linuxserver/docker-sqlitebrowser`:
+
+```shell
+```
+
+
+
+
 
 
 
