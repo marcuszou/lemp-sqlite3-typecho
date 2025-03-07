@@ -43,11 +43,11 @@ b). Download stable version of `Typecho` from https://github.com/typecho/typecho
 ## make a new folder for TYpecho system
 mkdir -p www/typecho
 ## Download
-wget https://github.com/typecho/typecho/releases/latest/download/typecho.zip --no-check-certificate
+wget https://github.com/typecho/typecho/releases/latest/download/typecho.zip
 ## unzip the installer of Typecho to the main folder
 sudo unzip ./typecho.zip -d www/typecho/
 
-wget https://github.com/typecho/languages/releases/download/ci/langs.zip --no-check-certificate
+wget https://github.com/typecho/languages/releases/download/ci/langs.zip
 ## Unzip the language pack to subfolder: /usr/langs
 sudo unzip ./langs.zip -d www/typecho/usr/langs/
 ```
@@ -79,26 +79,26 @@ Then download and install the themes and plugins:
 
 ```shell
 ## theme download & install
-wget https://github.com/marcuszou/caddy-typecho/blob/master/themes/theme-MWordStar-2.6-bundle.zip --no-check-certificate
+wget https://github.com/marcuszou/caddy-typecho/blob/master/themes/theme-MWordStar-2.6-bundle.zip
 sudo unzip ./theme-MWordStar-2.6-bundle.zip -d www/typecho/usr/themes/
 
 ## plugin diwnload and install
-wget https://github.com/marcuszou/caddy-typecho/blob/master/plugins/plugin-ColorHighlight-for-typecho.zip --no-check-certificate
+wget https://github.com/marcuszou/caddy-typecho/blob/master/plugins/plugin-ColorHighlight-for-typecho.zip
 sudo unzip ./plugin-ColorHighlight-for-typecho.zip -d www/typecho/usr/plugins/
 
-wget https://github.com/marcuszou/caddy-typecho/blob/master/plugins/plugin-Likes-for-typecho.zip --no-check-certificate
+wget https://github.com/marcuszou/caddy-typecho/blob/master/plugins/plugin-Likes-for-typecho.zip
 sudo unzip ./plugin-Likes-for-typecho.zip -d www/typecho/usr/plugins/
 
-wget https://github.com/marcuszou/caddy-typecho/blob/master/plugins/plugin-PostTOC-for-typecho.zip --no-check-certificate
+wget https://github.com/marcuszou/caddy-typecho/blob/master/plugins/plugin-PostTOC-for-typecho.zip
 sudo unzip ./plugin-PostTOC-for-typecho.zip -d www/typecho/usr/plugins/
 
-wget https://github.com/marcuszou/caddy-typecho/blob/master/plugins/plugin-TypechoPDF.zip --no-check-certificate
+wget https://github.com/marcuszou/caddy-typecho/blob/master/plugins/plugin-TypechoPDF.zip
 sudo unzip ./plugin-TypechoPDF.zip -d www/typecho/usr/plugins/
 
-wget https://github.com/marcuszou/caddy-typecho/blob/master/plugins/plugin-ViewsCounter-for-typecho.zip --no-check-certificate
+wget https://github.com/marcuszou/caddy-typecho/blob/master/plugins/plugin-ViewsCounter-for-typecho.zip
 sudo unzip ./plugin-ViewsCounter-for-typecho.zip -d www/typecho/usr/plugins/
 
-wget https://github.com/marcuszou/caddy-typecho/blob/master/plugins/plugin-YoutubeEmdedding-for-typecho.zip --no-check-certificate
+wget https://github.com/marcuszou/caddy-typecho/blob/master/plugins/plugin-YoutubeEmdedding-for-typecho.zip 
 sudo unzip ./plugin-YoutubeEmdedding-for-typecho.zip -d www/typecho/usr/plugins/
 
 rm *.zip
@@ -116,8 +116,6 @@ www/typecho/usr/plugins/
 └── Youtube
 ```
 
-
-
 c). Configure the ownership and privileges of the web root folder prior to the setup journey. Otherwise you will encounter error:  "`File not exist`" or likewise:
 
 ```shell
@@ -128,54 +126,25 @@ sudo chmod -Rf 755 www/typecho
 
 ```
 
-Open a browser to http://localhost. The website will be re-directed to the install process: http://172.31.111.215/install.php, which be like:
 
-![Install](assets/p3.png)
 
-I'll switch to "English" edition by clicking the lower-right dropdown box, then you will have:
+## Try it out
 
-![Install-Eng](assets/p3-eng.png)
-
-Most likely you will encounter an issue of:
-
-> 上传目录无法写入, 请手动将安装目录下的 /usr/uploads 目录的权限设置为可写然后继续升级
->
-> The upload directory cannot be written. Please manually set the permissions of the /usr/uploads directory under the installation directory to be writable and then continue the upgrade
-
-Then we have to go back to the web server directory and set the `/var/www/example.com/html/usr/uploads` folder writable by user `caddy`.
+Change the volume mapping:
 
 ```shell
-cd /var/www/example.com/html
-sudo chown caddy:caddy -Rf ./usr/uploads/
-## For other cases: sudo chown www-data:www-data ./usr/uploads/
-sudo chmod 755 -R ./usr/uploads/
+    volumes:
+      #- ./www/html/:/var/www/html/
+      - ./www/typecho:/var/www/html
 ```
 
-Then refresh the webpage, you should be able to proceed to the "Initial configuration".
-
-![init-config](assets/p4.png)
-
-if you forget to change the ownership of step 6c), most likely, you will encounter another issue of:
-
-> The installer cannot automatically create the **config.inc.php** file. You can manually create the **config.inc.php**
-> file in the root directory of the website and copy the following code into it.
-
-The reason is because `.../example.com/html/` folder is owned by `root` user while all operations shall be done with user `caddy`. Considering future operations are all by user `caddy`, then best solution is not manually creating the `config.inc.php` file, but modify the ownership of the `.../example.com/htm;/` folder:
+Then fire up the comtainers:
 
 ```shell
-sudo chown -R caddy:caddy /var/www/html/
-## For other cases: sudo chown www-data:www-data /var/www/typecho/
+docker compose up -d
 ```
 
-Then refresh the webpage of `Initial Configuration`, the you will be okay to proceed to next page:
-
-![Image](assets/p5.png)
-
-Then you will reach the final step:
-
-![Done](assets/p6.png)
-
-Enjoy the show!
+Open a browser to http://localhost:8080 to enjoy the Typecho Blog system. 
 
 
 

@@ -3,5 +3,3 @@ db/config/
 devcerts/*.pem
 nginx/logs/*.log
 .DS_Store
-www/typecho/
-

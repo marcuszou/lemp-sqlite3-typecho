@@ -13,7 +13,8 @@ services:
     links:
       - php
     volumes:
-      - ./www/html/:/var/www/html/
+      #- ./www/html/:/var/www/html/
+      - ./www/typecho:/var/www/html
       - ./nginx/conf/default.conf:/etc/nginx/conf.d/default.conf
       - ./nginx/logs/:/var/log/nginx/
     depends_on:
@@ -31,35 +32,35 @@ services:
     environment:
       - TZ=America/Edmonton
     volumes:
-      - ./www/html/:/var/www/html/
-      # php-fpm config files are located at /usr/local/etc/php-fpm.d/ folder
+      #- ./www/html/:/var/www/html/
+      - ./www/typecho:/var/www/html
       - ./php/php-log.conf:/usr/local/etc/php-fpm.d/zz-log.conf
       - ./php/php.ini:/usr/local/etc/php/conf.d/php.ini
       - ./db/data/:/data/
     networks:
       - lemp-sqlite3-net
 
-  # SQLiteBrowser Service
-  sqlitebrowser:
-    image: lscr.io/linuxserver/sqlitebrowser:latest
-    container_name: sqlitebrowser
-    security_opt:
-      - seccomp:unconfined #optional
-    environment:
-      - PUID=1000
-      - PGID=1000
-      - TZ=Etc/UTC
-    volumes:
-      - ./db/config:/config
-      - ./db/data:/data
-    ports:
-      - 3000:3000
-      - 3001:3001
-    restart: unless-stopped
-    depends_on: 
-      - php
-    networks:
-      - lemp-sqlite3-net
+  # # SQLiteBrowser Service
+  # sqlitebrowser:
+  #   image: lscr.io/linuxserver/sqlitebrowser:latest
+  #   container_name: sqlitebrowser
+  #   security_opt:
+  #     - seccomp:unconfined #optional
+  #   environment:
+  #     - PUID=1000
+  #     - PGID=1000
+  #     - TZ=Etc/UTC
+  #   volumes:
+  #     - ./db/config:/config
+  #     - ./db/data:/data
+  #   ports:
+  #     - 3000:3000
+  #     - 3001:3001
+  #   restart: unless-stopped
+  #   depends_on: 
+  #     - php
+  #   networks:
+  #     - lemp-sqlite3-net
 
 # Networks
 networks:
