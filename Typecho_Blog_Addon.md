@@ -102,18 +102,42 @@ wget https://github.com/marcuszou/caddy-typecho/blob/master/plugins/plugin-Youtu
 sudo unzip ./plugin-YoutubeEmdedding-for-typecho.zip -d www/typecho/usr/plugins/
 
 rm *.zip
-@@ CHeck the folder structure 
+
+## Write a placeholder.txt file for avoiding future hiccup
+echo "placeholder" > www/typecho/usr/uploads/placeholder.txt
+
+## Check the folder structure with the just-installed langs, themes, and plugins.
+## tree www/typecho/usr -L 2
 ```
 
 ```shell
-www/typecho/usr/plugins/
-├── ColorHighlight
-├── HelloWorld
-├── Like
-├── PostToc
-├── TypechoPDF
-├── ViewsCounter
-└── Youtube
+www/typecho/usr
+├── langs
+│   ├── ceb.mo
+│   ├── el_GR.mo
+│   ├── en_US.mo
+│   ├── es_ES.mo
+│   ├── fil_PH.mo
+│   ├── fr_FR.mo
+│   ├── ja_JP.mo
+│   ├── pt_BR.mo
+│   ├── ru_RU.mo
+│   ├── tr_TR.mo
+│   ├── ug_CN.mo
+│   └── zh_TW.mo
+├── plugins
+│   ├── ColorHighlight
+│   ├── HelloWorld
+│   ├── Like
+│   ├── PostToc
+│   ├── TypechoPDF
+│   ├── ViewsCounter
+│   └── Youtube
+├── themes
+│   ├── MWordStar
+│   └── default
+└── uploads
+    └── placeholder.txt
 ```
 
 c). Configure the ownership and privileges of the web root folder prior to the setup journey. Otherwise you will encounter error:  "`File not exist`" or likewise:
@@ -135,16 +159,18 @@ Change the volume mapping:
 ```shell
     volumes:
       #- ./www/html/:/var/www/html/
-      - ./www/typecho:/var/www/html
+      - ./www/typecho/:/var/www/html/
 ```
 
-Then fire up the comtainers:
+Optionally comment out the `SqliteBrowser` container part in `docker-compose.yml` file to save some diskspace.
+
+Then spin up the containers:
 
 ```shell
 docker compose up -d
 ```
 
-Open a browser to http://localhost:8080 to enjoy the Typecho Blog system. 
+Open a browser to http://localhost:8080 to enjoy the `Typecho Blog` system. 
 
 
 
