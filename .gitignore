@@ -1,5 +1,5 @@
 db/data/testing.sqlite
-db/config/
+db/config/*.*
 devcerts/*.pem
 nginx/logs/*.log
 .DS_Store
