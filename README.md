@@ -22,7 +22,7 @@ Without further ado, let’s work it out.
 #### # Tech Stack
 
 * __Linux__: Debian/Ubuntu is preferred
-* __Nginx__: The Frontend Web UI server
+* __Nginx__: The Web server, proxy server, load balancer
 * __SQLite3__: A single file based, light-weight database
 * __PHP__: 8.2-FPM
 
