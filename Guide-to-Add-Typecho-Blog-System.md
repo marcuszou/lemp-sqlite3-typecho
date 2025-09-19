@@ -147,7 +147,7 @@ c). Configure the ownership and privileges of the web root folder prior to the s
 ## sudo chown -R www-data:www-data www/typecho
 sudo chown -R http:http www/typecho
 ## Change the mode/privileges of the folder
-sudo chmod -Rf 755 www/typecho
+sudo chmod -Rf 777 www/typecho
 
 ```
 
@@ -176,4 +176,5 @@ Open a browser to http://localhost:8080 to enjoy the `Typecho Blog` system.
 
 
 ## The End
+
 
