@@ -1,0 +1,10 @@
+Update Notes: 
+
+Time: 27 ept 2025
+
+Q: Current version of Typecho is 1.2.1, any update?
+A: We need to pull down v1.3.0 from https://github.com/typecho/typecho
+
+Q: English lang file is not fully translated.
+A: Need to pull down https://github.com/typecho/languages/releases/download/ci/langs.zip or 
+   simply copy en_US.po and fa_IR.po, which have been updated in last 3 months.
