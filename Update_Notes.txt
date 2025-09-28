@@ -1,6 +1,6 @@
 Update Notes: 
 
-Time: 27 ept 2025
+Time: 27 Sept 2025
 
 Q: Current version of Typecho is 1.2.1, any update?
 A: We need to pull down v1.3.0 from https://github.com/typecho/typecho
