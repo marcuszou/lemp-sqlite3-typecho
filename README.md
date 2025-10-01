@@ -66,10 +66,12 @@ Without further ado, let’s work it out.
 
 ## Outro
 
-Detailed Steps can be found at [This Guide](./Guide-to-Dockerize-Nginx-SQLite3-PHP8.md).
+Details of [Guide to Dockerize Nginx, SQLite3 and PHP8](./Guide-to-Dockerize-Nginx-SQLite3-PHP8.md)
+Details of [Add Typecho into the Docker](./Guide-to-Add-Typecho.md]
 
 
 
 ## License
 
 MIT
+
